@@ -1,0 +1,25 @@
+{
+  "id": "com.vanmoof",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "VanMoof"
+  },
+  "description": {
+    "en": "Add support for VanMoof Bicycle's"
+  },
+  "category": [
+    "security"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Stuart Pearson",
+    "email": "stuart.w.pearson@gmail.com"
+  }
+}
