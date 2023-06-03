@@ -1,1 +1,4 @@
-env.json
+/env.json
+/node_modules/
+/.homeybuild/
+note.txt

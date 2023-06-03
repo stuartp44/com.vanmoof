@@ -1,0 +1,7 @@
+[
+  {
+    "id": "deviceId",
+    "type": "label",
+    "label": { "en": "Device ID" }
+  }
+]

@@ -12,7 +12,9 @@
   "category": [
     "security"
   ],
-  "permissions": [],
+  "permissions": [
+    "homey:wireless:ble"
+  ],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png",
@@ -20,6 +22,6 @@
   },
   "author": {
     "name": "Stuart Pearson",
-    "email": "stuart.w.pearson@gmail.com"
+    "email": "noreply@hnuk.net"
   }
 }

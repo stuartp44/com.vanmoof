@@ -1,13 +1,12 @@
-import sourceMapSupport from 'source-map-support';
-sourceMapSupport.install();
-
 import Homey from 'homey';
+import vanmoof from './lib/vanmoofweb';
 
 class VanMoof extends Homey.App {
+  private vanmoof: vanmoof = new vanmoof(this);
   /**
    * onInit is called when the app is initialized.
    */
-  async onInit() {
+  async onInit () {
     this.log('VanMoof has been initialized');
   }
 }
