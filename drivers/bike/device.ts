@@ -1,4 +1,4 @@
-import { Device } from 'homey';
+import { Device, SimpleClass } from 'homey';
 import vanmoofbike from '../../lib/vanmoofbike';
 
 
@@ -10,7 +10,6 @@ class vanMoof extends Device {
     this.log('Vanmoof Bike has been initialized')
     const store = this.getStore()
     const bike = new vanmoofbike('x3', store.encryptionKey, store.userKeyId)
-    this.log(bike)
 
     // Check if the deviceid is known (This is not the same as we get from Vanmoof)
     // const knownDeviceId = await this.detirminDeviceId()
@@ -26,24 +25,15 @@ class vanMoof extends Device {
     const bikeConnection = await this.connectToBike(deviceId)
     if (bikeConnection) {
       await bike.authenticate(bikeConnection)
-      this.registerCapabilityListener("locked", async (value) => {
-      this.log(value)
-      if (!value) {
-        await bike.playSound(bikeConnection, 0xA)
-      }
-      else {
-        await bike.playSound(bikeConnection, 0xA)
-      }
-    });
 
       // const message = await this.vanMoofLib.readFromBike(bikeConnection, '6acc5500e6314069944db8ca7598ad50', '6acc5505e6314069944db8ca7598ad50')
       // this.log(message)
       const motorBatteryLevel = await bike.getMotorBatteryLevel(bikeConnection)
       this.log(motorBatteryLevel)
-      const moduleBatteryLevel = await bike.getModuleBatteryLevel(bikeConnection)
-      this.log(moduleBatteryLevel)
-      const moduleFirmwareVersion = await bike.getFirmwareVersion(bikeConnection)
-      this.log(moduleFirmwareVersion)
+      //const moduleBatteryLevel = await bike.getModuleBatteryLevel(bikeConnection)
+      //this.log(moduleBatteryLevel)
+      //const moduleFirmwareVersion = await bike.getFirmwareVersion(bikeConnection)
+      //this.log(moduleFirmwareVersion)
     } else {
       this.setUnavailable('Could not connect to bike')
     }

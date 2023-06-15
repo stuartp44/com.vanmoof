@@ -4,10 +4,7 @@
   },
   "class": "homealarm",
   "capabilities": [
-    "measure_battery",
-    "alarm_generic",
-    "locked",
-    "alarm_motion"
+    "measure_battery"
   ],
   "connectivity": ["ble", "cloud"],
   "images": {
