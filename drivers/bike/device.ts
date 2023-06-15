@@ -29,10 +29,10 @@ class vanMoof extends Device {
       this.registerCapabilityListener("locked", async (value) => {
       this.log(value)
       if (!value) {
-        await bike.playSound(bikeConnection, 0x1)
+        await bike.playSound(bikeConnection, 0xA)
       }
       else {
-        await bike.playSound(bikeConnection, 0x1)
+        await bike.playSound(bikeConnection, 0xA)
       }
     });
 
