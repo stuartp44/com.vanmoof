@@ -1,0 +1,31 @@
+---
+name: 'Pull Request Checker'
+
+"on":
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  testcode:
+    name: Validate Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validate Homey App
+        uses: aivus/homey-validate-action@v1.0.2
+
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: MegaLinter
+        uses: oxsecurity/megalinter/flavors/javascript@v6.22.2
