@@ -25,7 +25,7 @@ export default class vanmoofbike {
         this.logger.log(nonce)
         const dataToEncrypt = new Uint8Array(16)
         dataToEncrypt.set(nonce)
-        this.logger.log( dataToEncrypt)
+        this.logger.log(dataToEncrypt)
         const encryptedData = this.cryptService.encrypt(dataToEncrypt)
         const data = new Uint8Array([...encryptedData, 0, 0, 0, this.userKeyId])
         this.logger.log(data)
