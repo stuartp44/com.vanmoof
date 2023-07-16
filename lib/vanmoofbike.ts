@@ -16,19 +16,19 @@ export default class vanmoofbike {
         )
         this.userKeyId = userKeyId
         this.encryptionKey = encryptionKey
-        this.logger = 
+        this.logger = new SimpleClass()
     }
 
     async authenticate (bluetoothConnection: any) {
         const nonce = await this.getSecurityChallenge(bluetoothConnection)
-        this.logger.log(`nonce is ${nonce.toString()}`)
-        this.logger.log(nonce)
+        console.log(`nonce is ${nonce.toString()}`)
+        console.log(nonce)
         const dataToEncrypt = new Uint8Array(16)
         dataToEncrypt.set(nonce)
-        this.logger.log(dataToEncrypt)
+        console.log(dataToEncrypt)
         const encryptedData = this.cryptService.encrypt(dataToEncrypt)
         const data = new Uint8Array([...encryptedData, 0, 0, 0, this.userKeyId])
-        this.logger.log(data)
+        console.log(data)
         await this.writeToBike(bluetoothConnection, data, '6acc5500e6314069944db8ca7598ad50', '6acc5502e6314069944db8ca7598ad50', true)
         await this.playSound(bluetoothConnection, 0xA)
     }
@@ -48,7 +48,7 @@ export default class vanmoofbike {
         const genericAccessService = await bluetoothConnection.getService(service);
         const data = await genericAccessService.read(characteristic);
         const uint8Array = new Uint8Array(data);
-        this.logger.log(`Read ${uint8Array} from ${service} - ${characteristic}`)
+        console.log(`Read ${uint8Array} from ${service} - ${characteristic}`)
         return uint8Array;
     }
 
@@ -57,15 +57,15 @@ export default class vanmoofbike {
         if (!writeWithoutEncryption) {
             const data = await this.makeEncryptedPayload(bluetoothConnection, payload)
             await genericAccessService.write(characteristic, data);
-            this.logger.log(`Wrote ${data} to ${service} - ${characteristic}`)
+            console.log(`Wrote ${data} to ${service} - ${characteristic}`)
         } else {
             await genericAccessService.write(characteristic, payload);
-            this.logger.log(`Wrote ${payload} to ${service} - ${characteristic}`)
+            console.log(`Wrote ${payload} to ${service} - ${characteristic}`)
         }
     }
 
     async playSound (bluetoothConnection: any, id: number) {
-        this.logger.log(`Playing sound ${id}`)
+        console.log(`Playing sound ${id}`)
         await this.writeToBike(bluetoothConnection, new Uint8Array([id, 0x1]), '6acc5570e6314069944db8ca7598ad50', '6acc5571e6314069944db8ca7598ad50')
     }
 
