@@ -1,6 +1,4 @@
-import { SimpleClass } from 'homey';
 import vanmoofcrypto from './vanmoofcrypto';
-import { log } from 'console';
 
 export default class vanmoofbike {
     bikeProfile
@@ -9,26 +7,22 @@ export default class vanmoofbike {
     encryptionKey
     logger
 
-    constructor(bikeProfile: string, encryptionKey: string, userKeyId: number) {
+    constructor(bikeProfile: string, encryptionKey: string, userKeyId: number, SimpleClass: any) {
         this.bikeProfile = bikeProfile
         this.cryptService = new vanmoofcrypto(
             encryptionKey
         )
         this.userKeyId = userKeyId
         this.encryptionKey = encryptionKey
-        this.logger = new SimpleClass()
+        this.logger = SimpleClass
     }
 
     async authenticate (bluetoothConnection: any) {
-        const nonce = await this.getSecurityChallenge(bluetoothConnection)
-        console.log(`nonce is ${nonce.toString()}`)
-        console.log(nonce)
-        const dataToEncrypt = new Uint8Array(16)
-        dataToEncrypt.set(nonce)
-        console.log(dataToEncrypt)
-        const encryptedData = this.cryptService.encrypt(dataToEncrypt)
-        const data = new Uint8Array([...encryptedData, 0, 0, 0, this.userKeyId])
-        console.log(data)
+        const passcode = this.cryptService.getPasscode()
+        //const nonce = await this.getSecurityChallenge(bluetoothConnection)
+        //const dataToEncrypt = new Uint8Array(16)
+        //const encryptedData = this.cryptService.encrypt(dataToEncrypt)
+        const data = new Uint8Array([...passcode, 0, 0, 0, this.userKeyId])
         await this.writeToBike(bluetoothConnection, data, '6acc5500e6314069944db8ca7598ad50', '6acc5502e6314069944db8ca7598ad50', true)
         await this.playSound(bluetoothConnection, 0xA)
     }
